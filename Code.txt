@@ -1,0 +1,56 @@
+Code Segment:
+
+int sensor_pin1 = A0;
+int sensor_pin2 = A2;
+
+int output_value1 ;
+int output_value2 ;
+
+void setup() {
+
+   Serial.begin(9600);
+   pinMode(13, OUTPUT);
+   pinMode(12, OUTPUT);
+   digitalWrite(13, LOW);
+   digitalWrite(12, HIGH);
+   Serial.println("Reading From the Sensor ...");
+
+   delay(2000);
+
+   }
+void relay(){
+
+  if (output_value1<10 && output_value2<10) {
+ digitalWrite(13, LOW);
+ digitalWrite(12, HIGH); 
+ }
+ else if (output_value1<10 || output_value2<10) {
+ digitalWrite(13, LOW);
+ digitalWrite(12, HIGH); 
+ }
+ else {
+ digitalWrite(13, HIGH);
+ digitalWrite(12, LOW); 
+ }
+}
+
+void loop() {
+
+   output_value1 = analogRead(sensor_pin1);
+   output_value1 = map(output_value1,550,0,0,100);
+   Serial.print("Mositure s1: ");
+   Serial.print(output_value1);
+   Serial.println("%");
+   delay(1000);
+   relay();
+
+   output_value2 = analogRead(sensor_pin2);
+   output_value2 = map(output_value2,550,0,0,100);
+   Serial.print("Mositure s2: ");
+   Serial.print(output_value2);
+   Serial.println("%");
+   delay(1000);
+   relay();
+
+   }
+
